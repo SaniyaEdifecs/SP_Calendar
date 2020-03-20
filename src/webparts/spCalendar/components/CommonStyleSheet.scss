@@ -1,0 +1,82 @@
+// Variables
+$theme-color: #ed5124;
+$white: #ffffff;
+$black: #000000;
+$blue: #687bf7;
+$lightblue: #72d9ef;
+$cyan: #79e7eb;
+$grey: #e4dfdf;
+
+// Style
+
+// .fc-day-grid-container{
+//   height: 500px !important;
+// }
+#customized-dialog-title {
+  .MuiTypography-h6 {
+    font-size: 16px;
+    font-weight: 600;
+    max-width: 95%;
+  }
+  p {
+    font-size: 14px;
+  }
+  button {
+    color: $theme-color;
+    .MuiButton-label {
+      color: $theme-color;
+    }
+  }
+}
+.MuiDialogContent-root {
+  .MuiTypography-root {
+    font-size: 14px;
+  }
+}
+.descLink {
+  color: $theme-color !important;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.fc-button-primary {
+  background-color: $theme-color !important;
+  border-color: $theme-color !important;
+}
+
+.MuiButton-containedPrimary {
+  background-color: $theme-color !important;
+}
+.margin16px {
+  margin-bottom: 16px;
+}
+
+.fc-button {
+  .fc-icon {
+    margin-top: -1px;
+  }
+}
+
+.float-right {
+  button {
+    float: right;
+    .MuiButton-label {
+      font-size: 12px;
+    }
+  }
+}
+table{
+  tbody{
+    td{
+      a{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.msSpinner {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
