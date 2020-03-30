@@ -6,12 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import * as moment from 'moment-timezone';
 import '../components/CommonStyleSheet.scss';
 
 const styles = (theme: Theme) =>
@@ -31,19 +26,13 @@ const styles = (theme: Theme) =>
 export interface DialogTitleProps extends WithStyles<typeof styles> {
     id: string;
     children: React.ReactNode;
-    onClose: () => void;
 }
 
 const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
-    const { children, classes, onClose, ...other } = props;
+    const { children, classes, ...other } = props;
     return (
         <MuiDialogTitle disableTypography className={classes.root} {...other}>
             <Typography variant="h6">{children}</Typography>
-            {onClose ? (
-                <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                    <CloseIcon />
-                </IconButton>
-            ) : null}
         </MuiDialogTitle>
     );
 });
@@ -61,13 +50,12 @@ const DialogActions = withStyles((theme: Theme) => ({
     },
 }))(MuiDialogActions);
 
-const DialogBox = ({ props, content, onChildClick  }) => {
+const ConfirmDialog = ({ props, content, onChildClick }) => {
     const theme = useTheme();
-    const zone = moment.tz("America/Los_Angeles").zoneAbbr();
     const [open, setOpen] = useState(false);
-    const handleClose = () => {
+    const handleClose = (isCanceled) => {
         setOpen(false);
-        onChildClick(false);
+        onChildClick(isCanceled);
     };
     useEffect(() => {
         setOpen(props);
@@ -75,28 +63,29 @@ const DialogBox = ({ props, content, onChildClick  }) => {
 
     return (
         <div>
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
-                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-                   Change Event
+            <Dialog onClose={() => handleClose(false)} aria-labelledby="customized-dialog-title" open={open} >
+                <DialogTitle id="customized-dialog-title" >
+                    Load older events?
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Typography gutterBottom className="borderPadding">
-                    <div>{ReactHtmlParser(content.mrTITLE && content.mrTITLE)}</div>
-                    <div><a target='_blank' className="descLink" href={"https://esd/MRcgi/MRlogin.pl?DL="+content.mrID+"DA8"}>View Ticket</a></div>
-                    </Typography>
                     <Typography gutterBottom >
-                        <b>Start:</b> {moment.utc(content.Scheduled__bStart).format('MMM Do h:mm A')+" "+zone} <br />
-                        <b>End:</b> {moment.utc(content.Scheduled__bEnd).format('MMM Do h:mm A')+" "+zone}
-                        {ReactHtmlParser(content.mrDESCRIPTION)}
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M.5 16h17L9 1 .5 16zm9.5-2H8v-2h2v2zm0-3H8V7h2v4z" /></svg>
+                            <span>Choosing to load older events can take awhile. Are you sure you want to do this?</span>
+                        </div>
                     </Typography>
+
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary" className="descLink">
-                        Close
+                    <Button onClick={() => handleClose(true)} color="primary" className="descLink">
+                        Yes
+                    </Button>
+                    <Button onClick={() => handleClose(false)} color="default" >
+                        Cancel
                     </Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
 };
-export default DialogBox;
+export default ConfirmDialog;

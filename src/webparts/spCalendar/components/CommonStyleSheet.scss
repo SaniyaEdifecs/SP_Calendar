@@ -1,5 +1,5 @@
 // Variables
-$theme-color: #ed5124;
+$theme-color: #ff5c39;
 $white: #ffffff;
 $black: #000000;
 $blue: #687bf7;
@@ -31,6 +31,9 @@ $grey: #e4dfdf;
 .MuiDialogContent-root {
   .MuiTypography-root {
     font-size: 14px;
+    a {
+      font-size: 12px;
+    }
   }
 }
 .descLink {
@@ -46,6 +49,10 @@ $grey: #e4dfdf;
 
 .MuiButton-containedPrimary {
   background-color: $theme-color !important;
+  &.disabled{
+    background-color: rgba(0,0,0,0.32) !important;
+    cursor: not-allowed !important;
+  }
 }
 .margin16px {
   margin-bottom: 16px;
@@ -65,18 +72,49 @@ $grey: #e4dfdf;
     }
   }
 }
-table{
-  tbody{
-    td{
-      a{
+table {
+  tbody {
+    td {
+      a {
         cursor: pointer;
       }
     }
   }
 }
-
+.MuiTypography-h6 {
+  margin-top: -3px;
+}
 .msSpinner {
   height: 300px;
   display: flex;
   justify-content: center;
 }
+
+
+.borderPadding {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 16px;
+  margin-bottom: 16px !important;
+}
+.inactive{
+  background-color: rgba(109,173,63,1.0) !important;
+  border: 1px solid rgba(109,173,63,1.0) !important;
+}
+.canceled{
+  background-color: rgba(51,51,51,.50) !important;
+  border: 1px solid rgba(51,51,51,0.50) !important;
+}
+.eventHover {
+  background-color: $theme-color !important;
+  border-color: $theme-color !important;
+}
+svg {
+  fill: #ffbf00;
+  padding-right: 5px;
+  vertical-align: top;
+}
+// @media (min-width: 768px) {
+//   .MuiDialog-paperWidthSm {
+//     width: 550px;
+//   }
+// }
